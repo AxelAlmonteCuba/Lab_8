@@ -1,3 +1,4 @@
+package orden;
 
 import java.util.Arrays;
 
@@ -7,17 +8,17 @@ public class PrimAlgorithm {
         char[] data = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G'};
         int verxs = data.length;
         int[][] weight = new int[][]{{10000, 5, 7, 10000, 10000, 10000, 2}, {5, 10000, 10000, 9, 10000, 10000, 3}, {7, 10000, 10000, 10000, 8, 10000, 10000}, {10000, 9, 10000, 10000, 10000, 4, 10000}, {10000, 10000, 8, 10000, 10000, 5, 4}, {10000, 10000, 10000, 4, 5, 10000, 6}, {2, 3, 10000, 10000, 4, 6, 10000},};
-        MGraph graph = new MGraph(verxs); 
-        MinTree minTree = new MinTree();
+        Grafo graph = new Grafo(verxs); 
+        prim minTree = new prim();
         minTree.createGraph(graph, verxs,  weight);
         minTree.showGraph(graph);
         minTree.prim(graph, 0);
     }
 }
 
-class MinTree {
+class prim {
 
-    public void createGraph(MGraph grafo, int veritices, int[][] matriz) {
+    public void createGraph(Grafo grafo, int veritices, int[][] matriz) {
         int i, j;
         for (i = 0; i < veritices; i++) {
             for (j = 0; j < veritices; j++) {
@@ -25,12 +26,12 @@ class MinTree {
             }
         }
     }
-    public void showGraph(MGraph grafo) {
+    public void showGraph(Grafo grafo) {
         for (int[] link : grafo.matriz_adj) {
             System.out.println(Arrays.toString(link));
         }
     }
-    public void prim(MGraph grafo, int v) {
+    public void prim(Grafo grafo, int v) {
         int visitado[] = new int[grafo.num_nodos];
           visitado[v] = 1;
         int h1 = -1;
@@ -46,19 +47,19 @@ class MinTree {
                     }
                 }
             }
-            System.out.println("Lado <" + grafo.data[h1] + "," + grafo.data[h2] + "> Peso:" + minPeso); // Marcar el nodo actual como visitado
+            System.out.println("Lado <" + grafo.data[h1] + "," + grafo.data[h2] + "> Peso:" + minPeso); 
             visitado[h2] = 1;
             minPeso = 10000;
         }
     }
 }
 
-class MGraph {
+class Grafo {
     int num_nodos;
     char[] data;
     int[][] matriz_adj; 
 
-    public MGraph(int verxs) {
+    public Grafo(int verxs) {
         this.num_nodos = verxs;
         data = new char[verxs];
         matriz_adj = new int[verxs][verxs];
